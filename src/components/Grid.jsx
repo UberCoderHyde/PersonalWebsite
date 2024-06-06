@@ -269,7 +269,10 @@ const Grid = ({ rows = 20, cols = 40 }) => {
 
   return (
     <>
-      <div className="flex flex-wrap items-center justify-center space-x-2 p-4">
+      <div className="flex flex-col items-center justify-center text-center my-16">
+        <h2 className="text-2xl font-bold dark:text-white ">PathFinding Demo</h2>
+      </div>
+      <div className="dark:bg-gray-900 flex flex-wrap items-center justify-center space-x-2 p-4">
         <button
           onClick={() => setTool("start")}
           className="bg-blue-500 hover:bg-green-00 text-white font-bold py-2 px-4 rounded transition duration-200 ease-in-out"
@@ -336,7 +339,6 @@ const Grid = ({ rows = 20, cols = 40 }) => {
           justifyContent: "center",
           height: "100vh", // Full viewport height
           width: "100vw", // Full viewport width
-          background: "#FFFFFF",
           overflow: "hidden", // Avoid scrolling
         }}
       >
@@ -350,7 +352,7 @@ const Grid = ({ rows = 20, cols = 40 }) => {
           }}
         >
           {grid.map((row, rowIndex) => (
-            <div key={rowIndex} style={{ display: "flex" }}>
+            <div className="bg-white" key={rowIndex} style={{ display: "flex" }}>
               {row.map((node) => (
                 <div
                   key={`${node.row}-${node.col}`}
