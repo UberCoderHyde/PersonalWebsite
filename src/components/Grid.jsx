@@ -15,6 +15,7 @@ const createNode = (row, col) => ({
   isVisited: false,
   previousNode: null,
   isPath: false, // Ensure isPath is included if used for rendering
+  status:undefined,
 });
 
 const initializeGrid = (rows, cols, startRow, startCol) => {
@@ -24,7 +25,7 @@ const initializeGrid = (rows, cols, startRow, startCol) => {
     for (let col = 0; col < cols; col++) {
       const node = createNode(row, col);
       if (row === startRow && col === startCol) {
-        node.distance = 0; // Start node distance should be 0
+        node.distance = 0;
         node.isStart = true;
       }
       currentRow.push(node);
@@ -70,10 +71,13 @@ const Grid = ({ rows = 20, cols = 40 }) => {
       grid.map((row) =>
         row.map((cell) => ({
           ...cell,
+          isEnd:false,
+          isStart:false,
           isVisited: false,
           distance: Infinity,
           previousNode: null,
           isPath: false,
+          status:undefined,
         }))
       )
     );
@@ -90,6 +94,7 @@ const Grid = ({ rows = 20, cols = 40 }) => {
           isWall: false,
           isStart: false,
           isEnd: false,
+          status:undefined,
         }))
       )
     );
@@ -112,7 +117,7 @@ const Grid = ({ rows = 20, cols = 40 }) => {
       );
       return newGrid;
     });
-  };
+  };      
 
   // Call `highlightPath` within `findPath` if still required
   const findPath = async () => {
@@ -268,7 +273,7 @@ const Grid = ({ rows = 20, cols = 40 }) => {
   };
 
   return (
-    <>
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="flex flex-col items-center justify-center text-center my-16">
         <h2 className="text-2xl font-bold dark:text-white ">PathFinding Demo</h2>
       </div>
@@ -318,7 +323,7 @@ const Grid = ({ rows = 20, cols = 40 }) => {
         </button>
         <button
           onClick={clearGrid}
-          className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition duration-200 ease-in-out"
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-200 ease-in-out"
         >
           Clear Grid
         </button>
@@ -331,12 +336,8 @@ const Grid = ({ rows = 20, cols = 40 }) => {
       </div>
 
       <div
-        className="transition-transform"
+        className="flex items-center justify-center"
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
           height: "100vh", // Full viewport height
           width: "100vw", // Full viewport width
           overflow: "hidden", // Avoid scrolling
@@ -349,6 +350,7 @@ const Grid = ({ rows = 20, cols = 40 }) => {
             display: "flex",
             flexDirection:"column",
             alignItems: "center",
+            justifyConent: "center",
           }}
         >
           {grid.map((row, rowIndex) => (
@@ -375,7 +377,7 @@ const Grid = ({ rows = 20, cols = 40 }) => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -396,5 +398,5 @@ function determineBackgroundColor(node) {
     const lightness = 15 + 70 * (node.distance / 60); // Assumes max distance scale is 10, adjust as needed
     return `hsl(200, 100%, ${Math.min(lightness, 90)}%)`; // Capping lightness at 100%
   }
-  return "transparent"; // Default color for unvisited nodes
+  return "white"; // Default color for unvisited nodes
 }
