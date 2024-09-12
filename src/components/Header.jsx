@@ -4,8 +4,7 @@ import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-scroll';
 
 const Header = () => {
-  const [darkMode, setDarkMode] = useState(false);
-
+  const [darkMode, setDarkMode] = useState(true);
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
     if (darkMode) {
