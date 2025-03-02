@@ -1,10 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
-import { aStar } from "../algorithms/AStar"; // Ensure path is correct and typo is fixed from "algotithms" to "algorithms"
+import { aStar } from "../algorithms/AStar"; // Ensure the import path is correct and typo corrected.
 import { dijkstra } from "../algorithms/Dijkstra";
 import { dfs } from "../algorithms/DFS";
 import { bfs } from "../algorithms/BFS";
+
+// Creates a new node with default properties.
 const createNode = (row, col) => ({
   row,
   col,
@@ -14,10 +16,12 @@ const createNode = (row, col) => ({
   distance: Infinity,
   isVisited: false,
   previousNode: null,
-  isPath: false, // Ensure isPath is included if used for rendering
-  status:undefined,
+  isPath: false, // This property is used to indicate if the node is part of the final path.
+  status: undefined,
 });
 
+// Initializes the grid with the given number of rows and columns.
+// Optionally, a starting node can be set by providing startRow and startCol.
 const initializeGrid = (rows, cols, startRow, startCol) => {
   const grid = [];
   for (let row = 0; row < rows; row++) {
@@ -42,46 +46,55 @@ const Grid = ({ rows = 20, cols = 40 }) => {
   const [algorithm, setAlgorithm] = useState("aStar");
   const [cellSize, setCellSize] = useState(25);
 
+  // Handle algorithm selection change.
   const handleAlgorithmChange = (event) => {
     setAlgorithm(event.target.value);
   };
+
+  // Initialize the grid when the component mounts or when rows/cols change.
   useEffect(() => {
     setGrid(initializeGrid(rows, cols));
   }, [rows, cols]);
 
+  // Apply the current tool (start, end, or wall) on mouse down.
   const handleMouseDown = (row, col) => {
     applyTool(row, col);
     setIsDragging(true);
     document.addEventListener("mouseup", handleMouseUp);
   };
 
+  // Apply the current tool on mouse enter when dragging.
   const handleMouseEnter = (row, col) => {
     if (isDragging) {
       applyTool(row, col);
     }
   };
 
+  // End dragging.
   const handleMouseUp = () => {
     setIsDragging(false);
     document.removeEventListener("mouseup", handleMouseUp);
   };
 
+  // Resets only the path-related properties of each cell.
   const clearPath = () => {
     setGrid(
       grid.map((row) =>
         row.map((cell) => ({
           ...cell,
-          isEnd:false,
-          isStart:false,
+          isEnd: false,
+          isStart: false,
           isVisited: false,
           distance: Infinity,
           previousNode: null,
           isPath: false,
-          status:undefined,
+          status: undefined,
         }))
       )
     );
   };
+
+  // Resets the entire grid to its initial state.
   const clearGrid = () => {
     setGrid(
       grid.map((row) =>
@@ -94,32 +107,32 @@ const Grid = ({ rows = 20, cols = 40 }) => {
           isWall: false,
           isStart: false,
           isEnd: false,
-          status:undefined,
+          status: undefined,
         }))
       )
     );
   };
-  // Ensure `highlightPath` is used if needed
+
+  // Highlights the computed path by marking nodes along it.
   const highlightPath = (path) => {
     setGrid((prevGrid) => {
       const newGrid = prevGrid.map((row) =>
         row.map((cell) => {
-          // Find if the current cell is in the path
+          // Check if the current cell is part of the computed path.
           const pathNode = path.find(
             (pNode) => pNode.row === cell.row && pNode.col === cell.col
           );
           if (pathNode) {
-            return { ...cell, isPath: true, status: "path" }; // Mark it as part of the path
+            return { ...cell, isPath: true, status: "path" };
           }
-          // Return the cell as is if it's not part of the path
           return cell;
         })
       );
       return newGrid;
     });
-  };      
+  };
 
-  // Call `highlightPath` within `findPath` if still required
+  // Finds the path using the selected algorithm and updates the grid visuals.
   const findPath = async () => {
     const startNode = grid.flat().find((node) => node.isStart);
     const endNode = grid.flat().find((node) => node.isEnd);
@@ -137,6 +150,8 @@ const Grid = ({ rows = 20, cols = 40 }) => {
       highlightPath(path);
     }
   };
+
+  // Applies the selected tool to the specified cell.
   const applyTool = (row, col) => {
     const newGrid = grid.map((r, rowIndex) =>
       r.map((cell, colIndex) => {
@@ -149,7 +164,7 @@ const Grid = ({ rows = 20, cols = 40 }) => {
             if (existingStartCell) return cell;
             return {
               ...cell,
-              isStart: !cell.isStart,
+              isStart: true,
               isEnd: false,
               isWall: false,
             };
@@ -161,7 +176,7 @@ const Grid = ({ rows = 20, cols = 40 }) => {
             if (existingEndCell) return cell;
             return {
               ...cell,
-              isEnd: !cell.isEnd,
+              isEnd: true,
               isStart: false,
               isWall: false,
             };
@@ -179,17 +194,19 @@ const Grid = ({ rows = 20, cols = 40 }) => {
     );
     setGrid(newGrid);
   };
+
+  // Generates a maze using a randomized Prim's algorithm.
   const generateMaze = (grid, setGrid) => {
-    // Initialize all cells as walls
+    // Set all cells as walls.
     let mazeGrid = grid.map((row) =>
       row.map((cell) => ({ ...cell, isWall: true }))
     );
 
-    // Random starting point
+    // Choose a random starting point.
     let startRow = Math.floor(Math.random() * grid.length);
     let startCol = Math.floor(Math.random() * grid[0].length);
 
-    // Function to get the frontier cells
+    // Helper function to retrieve frontier cells.
     function getFrontiers(row, col) {
       let frontiers = [];
       [
@@ -217,27 +234,27 @@ const Grid = ({ rows = 20, cols = 40 }) => {
       return frontiers;
     }
 
-    // Set starting cell as open space
+    // Carve out the starting cell.
     mazeGrid[startRow][startCol].isWall = false;
     let frontiers = getFrontiers(startRow, startCol);
 
-    // Process frontiers
+    // Process and carve passages from frontier cells.
     while (frontiers.length > 0) {
       let frontierIndex = Math.floor(Math.random() * frontiers.length);
       let frontier = frontiers[frontierIndex];
       if (mazeGrid[frontier.row][frontier.col].isWall) {
-        // If this is still a wall
         mazeGrid[frontier.row][frontier.col].isWall = false;
         mazeGrid[frontier.via.row][frontier.via.col].isWall = false;
         frontiers = frontiers.concat(getFrontiers(frontier.row, frontier.col));
       }
-      frontiers.splice(frontierIndex, 1); // Remove the processed frontier
+      frontiers.splice(frontierIndex, 1); // Remove the processed frontier.
     }
 
-    // Update the grid in the state
+    // Update the grid state with the generated maze.
     setGrid(mazeGrid);
   };
 
+  // Dynamically adjust cell size based on the viewport dimensions.
   const updateCellSize = useCallback(() => {
     const cellWidth = Math.min(window.innerWidth / cols, 25);
     const cellHeight = Math.min(window.innerHeight / rows, 25);
@@ -252,6 +269,7 @@ const Grid = ({ rows = 20, cols = 40 }) => {
     };
   }, [updateCellSize]);
 
+  // Updates the visual state of a node in the grid.
   const updateGridVisuals = (grid, node, status) => {
     console.log(
       `Updating visuals for node at [${node.row},${node.col}] with new distance ${node.distance}`
@@ -275,12 +293,12 @@ const Grid = ({ rows = 20, cols = 40 }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="flex flex-col items-center justify-center text-center my-16">
-        <h2 className="text-2xl font-bold dark:text-white ">PathFinding Demo</h2>
+        <h2 className="text-2xl font-bold dark:text-white">Pathfinding Demo</h2>
       </div>
       <div className="dark:bg-gray-900 flex flex-wrap items-center justify-center space-x-2 p-4">
         <button
           onClick={() => setTool("start")}
-          className="bg-blue-500 hover:bg-green-00 text-white font-bold py-2 px-4 rounded transition duration-200 ease-in-out"
+          className="bg-blue-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-200 ease-in-out"
         >
           Set Start
         </button>
@@ -292,8 +310,9 @@ const Grid = ({ rows = 20, cols = 40 }) => {
         </button>
         <button
           onClick={() => setTool("wall")}
-          className={`bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-200 ease-in-out
-      ${tool === "wall" ? "bg-gray-900" : ""}`}
+          className={`bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-200 ease-in-out ${
+            tool === "wall" ? "bg-gray-900" : ""
+          }`}
         >
           Toggle Walls
         </button>
@@ -338,9 +357,9 @@ const Grid = ({ rows = 20, cols = 40 }) => {
       <div
         className="flex items-center justify-center"
         style={{
-          height: "100vh", // Full viewport height
-          width: "100vw", // Full viewport width
-          overflow: "hidden", // Avoid scrolling
+          height: "100vh", // Use the full viewport height.
+          width: "100vw", // Use the full viewport width.
+          overflow: "hidden", // Prevent scrolling.
         }}
       >
         <div
@@ -348,9 +367,9 @@ const Grid = ({ rows = 20, cols = 40 }) => {
             height: "80vh",
             width: "80vw",
             display: "flex",
-            flexDirection:"column",
+            flexDirection: "column",
             alignItems: "center",
-            justifyConent: "center",
+            justifyContent: "center",
           }}
         >
           {grid.map((row, rowIndex) => (
@@ -368,8 +387,8 @@ const Grid = ({ rows = 20, cols = 40 }) => {
                     background: determineBackgroundColor(node),
                     cursor: "pointer",
                     boxSizing: "border-box",
-                    lineHeight:'0',
-                    margin:'0',
+                    lineHeight: "0",
+                    margin: "0",
                   }}
                 />
               ))}
@@ -388,15 +407,16 @@ Grid.propTypes = {
 
 export default Grid;
 
+// Determines the background color of a node based on its state.
 function determineBackgroundColor(node) {
-  if (node.isStart) return "green"; // Start node in a darker distinct color
-  if (node.isEnd) return "red";
-  if (node.isWall) return "black";
-  if (node.isPath) return "orange";
+  if (node.isStart) return "green"; // Start node.
+  if (node.isEnd) return "red"; // End node.
+  if (node.isWall) return "black"; // Wall.
+  if (node.isPath) return "orange"; // Part of the final path.
   if (node.status === "open" || node.status === "current") {
-    // Adjusting to start darker and become lighter
-    const lightness = 15 + 70 * (node.distance / 60); // Assumes max distance scale is 10, adjust as needed
-    return `hsl(200, 100%, ${Math.min(lightness, 90)}%)`; // Capping lightness at 100%
+    // Gradually adjust lightness based on node distance.
+    const lightness = 15 + 70 * (node.distance / 60);
+    return `hsl(200, 100%, ${Math.min(lightness, 90)}%)`;
   }
-  return "white"; // Default color for unvisited nodes
+  return "white"; // Default for unvisited nodes.
 }

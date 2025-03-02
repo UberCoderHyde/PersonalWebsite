@@ -5,13 +5,19 @@ const experiences = [
     jobTitle: 'College Student',
     company: 'University of North Carolina at Charlotte',
     duration: 'August 2021 - Present',
-    description: 'Im currently in my Senior Year at UNCC for computer science and taking classes in a wide variety of things!'
+    description: 'I am currently in my Senior Year at UNCC pursuing a degree in Computer Science, where I explore a diverse range of subjects and projects.'
+  },
+  {
+    jobTitle: 'Software Developer',
+    company: 'CR Onsurd',
+    duration: 'July 2024 - Present',
+    description: 'At CR Onsurd, I played a key role in developing an MTConnect-based data collection platform. This system streamlined the acquisition and analysis of machine data, helping to optimize production processes and enhance operational efficiency.'
   },
   {
     jobTitle: 'Intern',
     company: 'PBE',
     duration: 'May 2020 - Aug 2020',
-    description: 'Built a application to create and scan barcodes for a molding operation. This helped the company know when they needed to replace molds to keep quality high and how many more uses a mold has in it. It was created using C#, WinForms and SQL'
+    description: 'Developed an application to generate and scan barcodes for a molding operation. This tool enhanced quality control by tracking when molds needed replacing and monitoring their remaining usage. The project was built using C#, WinForms, and SQL.'
   },
 ];
 
@@ -22,7 +28,12 @@ const Experience = () => {
         <h2 className="text-3xl font-bold mb-4 text-center">Experience</h2>
         <div className="space-y-8">
           {experiences.map((experience, index) => (
-            <div key={index} data-aos="fade-up" data-aos-delay={'${index*100}'} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+            <div
+              key={index}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
+            >
               <h3 className="text-xl font-semibold mb-2">{experience.jobTitle}</h3>
               <h4 className="text-md font-medium mb-1">{experience.company}</h4>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{experience.duration}</p>
@@ -36,4 +47,3 @@ const Experience = () => {
 };
 
 export default Experience;
-
