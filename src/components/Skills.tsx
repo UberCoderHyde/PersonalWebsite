@@ -20,14 +20,13 @@ const skills: Skill[] = [
   { name: "Python", level: "Advanced" },
   { name: "C#", level: "Advanced" },
 
-  // Core full‑stack and data skills
+  // Core full‑stack and data
+  { name: "SQL / SQLite", level: "Advanced" },
   { name: "RESTful API design (Node.js / Express)", level: "Intermediate" },
   { name: "Django (Python web framework)", level: "Intermediate" },
-  { name: "SQL / SQLite", level: "Intermediate" },
   { name: "MongoDB", level: "Intermediate" },
 
   // Designer / routing / client‑side frameworks
-  { name: "React Router (Remix v7 routing & SSR)", level: "Intermediate" },
 
   // Tools and DevOps essentials
   { name: "CI/CD pipelines (GitHub Actions, Docker)", level: "Intermediate" },
