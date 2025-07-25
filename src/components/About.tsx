@@ -1,4 +1,3 @@
-// src/components/About.tsx
 import React from "react";
 
 const About: React.FC = () => {
@@ -23,15 +22,16 @@ const About: React.FC = () => {
             data-aos="fade-right"
           >
             <p className="text-2xl leading-relaxed">
-              Hi, I’m <strong>Colby Meidenbauer</strong>—a Junior Software
-              Developer passionate about crafting innovative, user-focused
-              solutions that solve real problems.
+              Hi, I’m <strong>Colby Meidenbauer</strong>—a Software Developer at{" "}
+              <strong>C.R. Onsrud</strong>, building web applications to monitor
+              and analyze CNC machine data.
             </p>
             <p className="text-2xl leading-relaxed">
-              I’m proficient in{" "}
-              <strong>Python, Java, C#, HTML, CSS, JavaScript</strong>, and{" "}
-              <strong>SQL</strong>. With full-stack experience, I build
-              efficient, maintainable applications end-to-end.
+              I graduated from the University of North Carolina at Charlotte in{" "}
+              <strong>May 2025</strong> with a B.S. in Computer Science. I now
+              work full-time using <strong>TypeScript, React, Python,</strong>{" "}
+              and <strong>C#</strong> to create intuitive tooling and internal
+              dashboards.
             </p>
           </div>
 
@@ -40,13 +40,17 @@ const About: React.FC = () => {
             data-aos="fade-left"
           >
             <p className="text-2xl leading-relaxed">
-              Beyond code, I dive into Computer Science coursework at UNCC and
-              recharge with gaming or tinkering on side projects—always learning
-              something new.
+              At C.R. Onsrud, I focus on designing and implementing features
+              that improve operator workflows and data visualization using React
+              and TSX.
             </p>
             <p className="text-2xl leading-relaxed">
-              I’m actively seeking opportunities to grow and contribute. Let’s
-              collaborate on your next project and turn ideas into reality!
+              I’m continuously learning technologies like AWS to enhance my
+              full-stack capability and deliver scalable solutions.
+            </p>
+            <p className="text-2xl leading-relaxed">
+              Ready to contribute and grow—let’s build something impactful
+              together.
             </p>
           </div>
         </div>

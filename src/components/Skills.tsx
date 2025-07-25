@@ -35,7 +35,7 @@ const skills: Skill[] = [
 
   // Nice‑to‑have & emerging awareness
   { name: "Serverless / Cloud Platforms (AWS, Lambda)", level: "Beginner" },
-  { name: "Testing frameworks (Jest, Cypress)", level: "Beginner" },
+  { name: "Testing frameworks (Jest)", level: "Beginner" },
   {
     name: "System architecture & API modeling (OpenAPI, Postman)",
     level: "Beginner",
