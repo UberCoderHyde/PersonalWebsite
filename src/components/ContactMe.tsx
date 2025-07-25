@@ -1,6 +1,4 @@
-// src/components/ContactMe.tsx
 import React, { useRef, useState } from "react";
-import emailjs, { EmailJSResponseStatus } from "@emailjs/browser";
 
 export interface FormData {
   name: string;
@@ -9,9 +7,7 @@ export interface FormData {
   message: string;
 }
 
-const SERVICE_ID = "service_y5scter";
-const TEMPLATE_ID = "template_wdtqzs8";
-const PUBLIC_KEY = "47WFK2RZgLaeeleX1";
+const API_URL = "https://0sweyt4g00.execute-api.us-east-1.amazonaws.com/prod/"; // 🔁 replace with your actual endpoint
 
 const ContactMe: React.FC = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -32,22 +28,24 @@ const ContactMe: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!formRef.current) return;
 
     setIsSending(true);
     try {
-      const result: EmailJSResponseStatus = await emailjs.sendForm(
-        SERVICE_ID,
-        TEMPLATE_ID,
-        formRef.current,
-        PUBLIC_KEY
-      );
-      console.log("EmailJS status:", result.status, result.text);
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed to send message (status ${res.status})`);
+      }
+
       alert("Message sent successfully!");
       setFormData({ name: "", email: "", subject: "", message: "" });
-      formRef.current.reset();
+      formRef.current?.reset();
     } catch (err) {
-      console.error("EmailJS error:", err);
+      console.error("Submit error:", err);
       alert("Failed to send message. Please try again later.");
     } finally {
       setIsSending(false);
@@ -75,7 +73,6 @@ const ContactMe: React.FC = () => {
           data-aos-delay={100}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Name */}
             <div>
               <label
                 htmlFor="name"
@@ -95,7 +92,6 @@ const ContactMe: React.FC = () => {
               />
             </div>
 
-            {/* Email */}
             <div>
               <label
                 htmlFor="email"
@@ -116,7 +112,6 @@ const ContactMe: React.FC = () => {
             </div>
           </div>
 
-          {/* Subject */}
           <div>
             <label
               htmlFor="subject"
@@ -136,7 +131,6 @@ const ContactMe: React.FC = () => {
             />
           </div>
 
-          {/* Message */}
           <div>
             <label
               htmlFor="message"
@@ -156,7 +150,6 @@ const ContactMe: React.FC = () => {
             />
           </div>
 
-          {/* Submit */}
           <div className="text-center">
             <button
               type="submit"
