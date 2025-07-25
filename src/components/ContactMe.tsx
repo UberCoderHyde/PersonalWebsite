@@ -7,7 +7,7 @@ export interface FormData {
   message: string;
 }
 
-const API_URL = "https://0sweyt4g00.execute-api.us-east-1.amazonaws.com/prod/"; // 🔁 replace with your actual endpoint
+const API_URL = "https://0sweyt4g00.execute-api.us-east-1.amazonaws.com/prod"; // 🔁 replace with your actual endpoint
 
 const ContactMe: React.FC = () => {
   const formRef = useRef<HTMLFormElement>(null);
