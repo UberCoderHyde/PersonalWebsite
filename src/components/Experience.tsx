@@ -3,25 +3,32 @@ import React from "react";
 
 const experiences = [
   {
-    jobTitle: "College Student",
-    company: "University of North Carolina at Charlotte",
-    duration: "August 2021 – Present",
-    description:
-      "Pursuing a B.S. in Computer Science, working on diverse coursework and projects to deepen my full-stack skills.",
-  },
-  {
     jobTitle: "Software Developer",
     company: "C.R. Onsrud",
-    duration: "July 2024 – Present",
+    duration: "July 2024 – Present",
     description:
-      "Built an MTConnect-based data collection platform to streamline machine data analysis, optimizing production processes.",
+      "Full‑time software developer using React and TypeScript. Design and implement new features and updates to web tools for CNC machine data monitoring and operator workflows.",
   },
   {
-    jobTitle: "Intern",
-    company: "PBE",
-    duration: "May 2020 – August 2020",
+    jobTitle: "College Student",
+    company: "University of North Carolina at Charlotte",
+    duration: "August 2021 – May 2025",
     description:
-      "Developed a WinForms/C# barcode generator & scanner for mold tracking, improving quality control and lifecycle monitoring.",
+      "Pursued a B.S. in Computer Science while interning at C.R. Onsrud—developed full-stack skills in React, TypeScript, Python, C# and Django.",
+  },
+  {
+    jobTitle: "Software Development Intern",
+    company: "C.R. Onsrud",
+    duration: "Fall 2024",
+    description:
+      "Contributed to React + TypeScript dashboards and internal UI tools during internship for machine data ingestion and visualization.",
+  },
+  {
+    jobTitle: "Software Development Intern",
+    company: "PBE",
+    duration: "May 2020 – August 2020",
+    description:
+      "Built a WinForms/C# barcode generator and scanner for mold tracking, improving lifecycle monitoring and quality control.",
   },
 ];
 

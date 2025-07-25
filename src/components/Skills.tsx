@@ -9,22 +9,37 @@ export interface Skill {
 }
 
 const skills: Skill[] = [
-  { name: "Python", level: "Advanced" },
-  { name: "C#", level: "Advanced" },
-  { name: "Java", level: "Intermediate" },
-  { name: "JavaScript", level: "Advanced" },
+  // Top‑level: Advanced skills most relevant to your front‑end / full‑stack work
   { name: "TypeScript", level: "Advanced" },
   { name: "React", level: "Advanced" },
+  { name: "JavaScript (ES6+)", level: "Advanced" },
   { name: "Tailwind CSS", level: "Advanced" },
-  { name: "Django", level: "Intermediate" },
-  { name: "Node.js (Express.js)", level: "Intermediate" },
+  { name: "Git (version control & collaboration)", level: "Advanced" },
+
+  // Advanced back‑end / language proficiency
+  { name: "Python", level: "Advanced" },
+  { name: "C#", level: "Advanced" },
+
+  // Core full‑stack and data skills
+  { name: "RESTful API design (Node.js / Express)", level: "Intermediate" },
+  { name: "Django (Python web framework)", level: "Intermediate" },
+  { name: "SQL / SQLite", level: "Intermediate" },
   { name: "MongoDB", level: "Intermediate" },
-  { name: "SQLite", level: "Intermediate" },
-  { name: "SQL", level: "Intermediate" },
-  { name: "Git", level: "Advanced" },
-  { name: "R", level: "Beginner" },
-  { name: "C++", level: "Beginner" },
-  { name: "Hadoop (HDFS, MapReduce)", level: "Beginner" },
+
+  // Designer / routing / client‑side frameworks
+  { name: "React Router (Remix v7 routing & SSR)", level: "Intermediate" },
+
+  // Tools and DevOps essentials
+  { name: "CI/CD pipelines (GitHub Actions, Docker)", level: "Intermediate" },
+  { name: "JWT, OAuth & API security fundamentals", level: "Intermediate" },
+
+  // Nice‑to‑have & emerging awareness
+  { name: "Serverless / Cloud Platforms (AWS, Lambda)", level: "Beginner" },
+  { name: "Testing frameworks (Jest, Cypress)", level: "Beginner" },
+  {
+    name: "System architecture & API modeling (OpenAPI, Postman)",
+    level: "Beginner",
+  },
 ];
 
 // Tailwind base colors for badge levels
