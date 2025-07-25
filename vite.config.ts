@@ -15,6 +15,7 @@ export default defineConfig({
       brotliSize: true,
     }),
   ],
+
   build: {
     rollupOptions: {
       output: {
