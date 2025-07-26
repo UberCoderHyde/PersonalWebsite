@@ -28,7 +28,7 @@ const About: React.FC = () => {
             </p>
             <p className="text-2xl leading-relaxed">
               I graduated from the University of North Carolina at Charlotte in{" "}
-              <strong>May 2025</strong> with a B.S. in Computer Science. I now
+              <strong>May 2025</strong> with a B.A. in Computer Science. I now
               work full-time using <strong>TypeScript, React, Python,</strong>{" "}
               and <strong>C#</strong> to create intuitive tooling and internal
               dashboards.
