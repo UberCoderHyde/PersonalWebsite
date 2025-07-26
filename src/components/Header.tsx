@@ -18,14 +18,13 @@ export default function Header() {
   return (
     <header className="fixed top-0 inset-x-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-md transition-colors">
       <div className="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Brand icon or blank space */}
+        {/* Brand or Logo Placeholder (no name) */}
         <ScrollLink
           to="profile"
           smooth
           duration={500}
           className="text-xl font-semibold text-gray-900 dark:text-gray-100 cursor-pointer"
         >
-          {/* You could put a logo icon here if desired */}
           <span className="sr-only">Home</span>
         </ScrollLink>
 
@@ -47,7 +46,7 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Mobile Hamburger */}
+        {/* Mobile Hamburger Icon */}
         <button
           onClick={() => setMobileOpen((open) => !open)}
           aria-label="Toggle menu"
@@ -62,31 +61,39 @@ export default function Header() {
       </div>
 
       {/* Mobile Nav Overlay */}
-      <div
-        className={`md:hidden fixed inset-0 z-40 bg-white dark:bg-gray-900 transition-all duration-300 ease-in-out ${
-          mobileOpen
-            ? "translate-y-0 opacity-100"
-            : "-translate-y-full opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="flex flex-col items-center pt-20 space-y-8">
-          {navItems.map(({ id, label }) => (
-            <ScrollLink
-              key={id}
-              to={id}
-              smooth
-              spy
-              activeClass="text-mint"
-              duration={500}
-              offset={-100}
+      {mobileOpen && (
+        <div className="md:hidden fixed inset-0 z-40 flex flex-col bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg">
+          {/* Close Icon (stays visible) */}
+          <div className="absolute top-4 right-4 z-50">
+            <button
               onClick={() => setMobileOpen(false)}
-              className="text-2xl font-semibold text-gray-700 dark:text-gray-300 hover:text-mint cursor-pointer transition"
+              aria-label="Close menu"
+              className="p-3 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-mint transition"
             >
-              {label}
-            </ScrollLink>
-          ))}
+              <X className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+            </button>
+          </div>
+
+          {/* Mobile Nav Links */}
+          <div className="mt-20 flex flex-col items-center space-y-8 px-4">
+            {navItems.map(({ id, label }) => (
+              <ScrollLink
+                key={id}
+                to={id}
+                smooth
+                spy
+                activeClass="text-mint"
+                duration={500}
+                offset={-100}
+                onClick={() => setMobileOpen(false)}
+                className="text-2xl font-semibold text-gray-700 dark:text-gray-300 hover:text-mint cursor-pointer transition"
+              >
+                {label}
+              </ScrollLink>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 }
