@@ -59,23 +59,25 @@ export default function Header() {
           )}
         </button>
       </div>
-
       {/* Mobile Nav Overlay */}
       {mobileOpen && (
-        <div className="md:hidden fixed inset-0 z-40 flex flex-col bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg">
-          {/* Close Icon (stays visible) */}
+        <div className="md:hidden fixed inset-0 z-40">
+          {/* Dimmed blurred backdrop */}
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
+
+          {/* Close button stays visible */}
           <div className="absolute top-4 right-4 z-50">
             <button
               onClick={() => setMobileOpen(false)}
               aria-label="Close menu"
-              className="p-3 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-mint transition"
+              className="p-3 rounded-md bg-white/90 dark:bg-gray-800/90 shadow hover:bg-white dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-mint transition"
             >
-              <X className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+              <X className="w-6 h-6 text-gray-800 dark:text-gray-200" />
             </button>
           </div>
 
-          {/* Mobile Nav Links */}
-          <div className="mt-20 flex flex-col items-center space-y-8 px-4">
+          {/* Nav links on top of the backdrop */}
+          <div className="relative z-50 mt-24 flex flex-col items-center space-y-8 px-4">
             {navItems.map(({ id, label }) => (
               <ScrollLink
                 key={id}
@@ -86,7 +88,7 @@ export default function Header() {
                 duration={500}
                 offset={-100}
                 onClick={() => setMobileOpen(false)}
-                className="text-2xl font-semibold text-gray-700 dark:text-gray-300 hover:text-mint cursor-pointer transition"
+                className="text-2xl font-semibold text-white hover:text-mint cursor-pointer transition"
               >
                 {label}
               </ScrollLink>
@@ -94,6 +96,7 @@ export default function Header() {
           </div>
         </div>
       )}
+      s
     </header>
   );
 }
