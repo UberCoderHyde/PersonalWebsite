@@ -1,13 +1,21 @@
 // src/components/Header.tsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const HEADER_HEIGHT = 72; // px
+  const headerRef = useRef<HTMLElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
 
-  // Lock scroll when mobile menu is open
+  // Measure header height on mount
+  useEffect(() => {
+    if (headerRef.current) {
+      setHeaderHeight(headerRef.current.offsetHeight);
+    }
+  }, []);
+
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "auto";
     return () => {
@@ -25,21 +33,23 @@ export default function Header() {
   ] as const;
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-md transition-colors h-[72px]">
+    <header
+      ref={headerRef}
+      className="fixed top-0 inset-x-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-md transition-colors"
+    >
       <div className="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo or Home Link */}
+        {/* Logo / Brand */}
         <ScrollLink
           to="profile"
           smooth
           duration={500}
-          offset={-HEADER_HEIGHT}
+          offset={-headerHeight}
           className="text-xl font-semibold text-gray-900 dark:text-gray-100 cursor-pointer"
         >
-          <span className="sr-only">Home</span>
-          {/* You can place a logo or initials here */}
+          UberCoder
         </ScrollLink>
 
-        {/* Desktop Nav */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex flex-1 justify-center space-x-10">
           {navItems.map(({ id, label }) => (
             <ScrollLink
@@ -49,7 +59,7 @@ export default function Header() {
               spy
               activeClass="text-mint"
               duration={500}
-              offset={-HEADER_HEIGHT}
+              offset={-headerHeight}
               className="relative text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-mint cursor-pointer transition"
             >
               {label}
@@ -73,14 +83,17 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-gray-900 bg-opacity-95 text-white flex flex-col items-center justify-center space-y-8 px-4 pt-[72px]">
+        <div
+          className="fixed inset-0 z-40 bg-gray-900 bg-opacity-95 text-white flex flex-col items-center justify-center space-y-8 px-4"
+          style={{ paddingTop: headerHeight }}
+        >
           {navItems.map(({ id, label }) => (
             <ScrollLink
               key={id}
               to={id}
               smooth
               duration={500}
-              offset={-HEADER_HEIGHT}
+              offset={-headerHeight}
               onClick={() => setMobileOpen(false)}
               className="text-2xl font-semibold hover:text-mint transition cursor-pointer"
             >
