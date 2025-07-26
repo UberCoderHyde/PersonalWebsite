@@ -17,9 +17,19 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-md transition-colors">
-      <div className="max-w-screen-xl mx-auto flex items-center justify-between items-center px-8 py-4">
-        {/* Desktop Nav */}+{" "}
-        <nav className="hidden md:flex flex-1 justify-center items-center space-x-12">
+      <div className="max-w-screen-xl mx-auto px-8 py-4 flex items-center justify-between">
+        {/* Brand */}
+        <ScrollLink
+          to="profile"
+          smooth
+          duration={500}
+          className="text-2xl font-bold text-gray-900 dark:text-gray-100 cursor-pointer"
+        >
+          Colby Meidenbauer
+        </ScrollLink>
+
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex flex-1 justify-center space-x-12">
           {navItems.map(({ id, label }) => (
             <ScrollLink
               key={id}
@@ -36,6 +46,7 @@ export default function Header() {
             </ScrollLink>
           ))}
         </nav>
+
         {/* Mobile Hamburger */}
         <button
           onClick={() => setMobileOpen((open) => !open)}
@@ -52,7 +63,7 @@ export default function Header() {
 
       {/* Mobile Nav Overlay */}
       {mobileOpen && (
-        <div className="md:hidden fixed inset-0 bg-white dark:bg-gray-900 flex flex-col items-center pt-32 space-y-8 overflow-auto transition-opacity">
+        <div className="md:hidden fixed left-0 right-0 top-16 bottom-0 bg-white dark:bg-gray-900 flex flex-col items-center pt-8 space-y-6 overflow-auto transition-opacity">
           {navItems.map(({ id, label }) => (
             <ScrollLink
               key={id}
@@ -63,7 +74,7 @@ export default function Header() {
               duration={500}
               offset={-100}
               onClick={() => setMobileOpen(false)}
-              className="text-3xl font-semibold text-gray-700 dark:text-gray-300 hover:text-mint cursor-pointer transition"
+              className="text-2xl font-semibold text-gray-700 dark:text-gray-300 hover:text-mint cursor-pointer transition"
             >
               {label}
             </ScrollLink>
