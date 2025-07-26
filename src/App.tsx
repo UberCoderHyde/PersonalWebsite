@@ -1,7 +1,8 @@
-// src/App.tsx
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+
+import useIsMobile from "./hooks/useIsMobile"; // <-- import hook
 
 import Header from "./components/Header";
 import Profile from "./components/Profile";
@@ -66,15 +67,18 @@ const App: React.FC = () => {
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
   }, []);
+
+  const isMobile = useIsMobile();
+
   return (
     <div className="bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 transition-colors">
       <Header />
-      <main className="space-y-24">
+      <main className="space-y-16 sm:space-y-20 md:space-y-24">
         <Profile />
         <About />
         <ProjectsGrid projects={projects} />
         <Experience />
-        <Grid rows={20} cols={40} />
+        <Grid rows={isMobile ? 10 : 20} cols={isMobile ? 20 : 40} />
         <Skills />
         <ContactMe />
       </main>

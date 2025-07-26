@@ -1,10 +1,17 @@
-// src/components/Header.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Lock scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [mobileOpen]);
 
   const navItems = [
     { id: "profile", label: "Home" },
@@ -13,12 +20,12 @@ export default function Header() {
     { id: "experience", label: "Experience" },
     { id: "skills", label: "Skills" },
     { id: "contact", label: "Contact" },
-  ] as const;
+  ];
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-md transition-colors">
       <div className="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Brand or Logo Placeholder (no name) */}
+        {/* Logo placeholder */}
         <ScrollLink
           to="profile"
           smooth
@@ -46,9 +53,9 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Mobile Hamburger Icon */}
+        {/* Mobile Hamburger */}
         <button
-          onClick={() => setMobileOpen((open) => !open)}
+          onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
           className="md:hidden p-3 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-mint transition"
         >
@@ -59,44 +66,32 @@ export default function Header() {
           )}
         </button>
       </div>
-      {/* Mobile Nav Overlay */}
+
+      {/* Mobile Menu Overlay */}
       {mobileOpen && (
-        <div className="md:hidden fixed inset-0 z-40">
-          {/* Dimmed blurred backdrop */}
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-md" />
-
-          {/* Close button stays visible */}
-          <div className="absolute top-4 right-4 z-50">
-            <button
+        <div className="fixed inset-0 z-40 bg-gray-900 bg-opacity-95 text-white flex flex-col items-center justify-center space-y-8 px-4">
+          {navItems.map(({ id, label }) => (
+            <ScrollLink
+              key={id}
+              to={id}
+              smooth
+              duration={500}
+              offset={-100}
               onClick={() => setMobileOpen(false)}
-              aria-label="Close menu"
-              className="p-3 rounded-md bg-white/90 dark:bg-gray-800/90 shadow hover:bg-white dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-mint transition"
+              className="text-2xl font-semibold hover:text-mint transition cursor-pointer"
             >
-              <X className="w-6 h-6 text-gray-800 dark:text-gray-200" />
-            </button>
-          </div>
-
-          {/* Nav links on top of the backdrop */}
-          <div className="relative z-50 mt-24 flex flex-col items-center space-y-8 px-4">
-            {navItems.map(({ id, label }) => (
-              <ScrollLink
-                key={id}
-                to={id}
-                smooth
-                spy
-                activeClass="text-mint"
-                duration={500}
-                offset={-100}
-                onClick={() => setMobileOpen(false)}
-                className="text-2xl font-semibold text-white hover:text-mint cursor-pointer transition"
-              >
-                {label}
-              </ScrollLink>
-            ))}
-          </div>
+              {label}
+            </ScrollLink>
+          ))}
+          <button
+            onClick={() => setMobileOpen(false)}
+            aria-label="Close menu"
+            className="absolute top-4 right-4 p-3 bg-gray-800 rounded-md hover:bg-gray-700 transition"
+          >
+            <X className="w-6 h-6 text-white" />
+          </button>
         </div>
       )}
-      s
     </header>
   );
 }
