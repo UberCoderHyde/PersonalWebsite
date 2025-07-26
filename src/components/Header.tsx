@@ -59,7 +59,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-gray-900 bg-opacity-95 text-white space-y-8 px-4 overflow-y-auto pt-24">
+        <div className="absolute top-full left-0 right-0 z-40 bg-gray-900 text-white flex flex-col items-center space-y-6 py-8 shadow-md md:hidden">
           {navItems.map(({ id, label }) => (
             <ScrollLink
               key={id}
@@ -67,18 +67,11 @@ export default function Header() {
               smooth
               duration={500}
               onClick={() => setMobileOpen(false)}
-              className="text-2xl font-semibold hover:text-mint transition cursor-pointer"
+              className="text-xl font-semibold hover:text-mint transition cursor-pointer"
             >
               {label}
             </ScrollLink>
           ))}
-          <button
-            onClick={() => setMobileOpen(false)}
-            aria-label="Close menu"
-            className="absolute top-4 right-4 p-3 bg-gray-800 rounded-md hover:bg-gray-700 transition"
-          >
-            <X className="w-6 h-6 text-white" />
-          </button>
         </div>
       )}
     </header>
