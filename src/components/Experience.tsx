@@ -5,7 +5,7 @@ const experiences = [
   {
     jobTitle: "Software Developer",
     company: "C.R. Onsrud",
-    duration: "July 2024 – Present",
+    duration: "May 2025 – Present",
     description:
       "Full‑time software developer using React and TypeScript. Design and implement new features and updates to web tools for CNC machine data monitoring and operator workflows.",
   },
