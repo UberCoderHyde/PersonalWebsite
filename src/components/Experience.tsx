@@ -14,7 +14,7 @@ const experiences = [
     company: "University of North Carolina at Charlotte",
     duration: "August 2021 – May 2025",
     description:
-      "Pursued a B.S. in Computer Science while interning at C.R. Onsrud—developed full-stack skills in React, TypeScript, Python, C# and Django.",
+      "Earned a B.A. in Computer Science while interning at C.R. Onsrud—developed full-stack skills in React, TypeScript, Python, C# and Django.",
   },
   {
     jobTitle: "Software Development Intern",
