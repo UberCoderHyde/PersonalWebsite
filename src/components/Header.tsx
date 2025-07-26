@@ -84,8 +84,8 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 bg-gray-900 bg-opacity-95 text-white flex flex-col items-center justify-center space-y-8 px-4"
-          style={{ paddingTop: headerHeight }}
+          className="fixed inset-0 z-[100] bg-gray-900 bg-opacity-95 text-white px-4 pt-[var(--header-height)] flex flex-col items-center space-y-8 overflow-y-auto"
+          style={{ paddingTop: `${headerHeight}px` }}
         >
           {navItems.map(({ id, label }) => (
             <ScrollLink
