@@ -1,4 +1,3 @@
-// src/components/Profile.tsx
 import React from "react";
 import profilePic from "../assets/images/ProfilePic.webp";
 import { Link as ScrollLink } from "react-scroll";
@@ -9,7 +8,7 @@ const Profile: React.FC = () => {
   return (
     <section
       id="profile"
-      className="h-screen bg-white dark:bg-gray-700 transition-colors"
+      className="scroll-mt-[72px] h-screen bg-white dark:bg-gray-700 transition-colors"
     >
       <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 items-center gap-12">
         {/* Text Block */}
@@ -65,7 +64,7 @@ const Profile: React.FC = () => {
           </div>
         </div>
 
-        {/* Profile Image with Soft Mint Border */}
+        {/* Profile Image */}
         <div
           className="flex justify-center md:justify-end"
           data-aos="fade-down"
