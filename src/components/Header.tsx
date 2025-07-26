@@ -1,9 +1,11 @@
+// src/components/Header.tsx
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const HEADER_HEIGHT = 72; // px
 
   // Lock scroll when mobile menu is open
   useEffect(() => {
@@ -20,19 +22,21 @@ export default function Header() {
     { id: "experience", label: "Experience" },
     { id: "skills", label: "Skills" },
     { id: "contact", label: "Contact" },
-  ];
+  ] as const;
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-md transition-colors">
+    <header className="fixed top-0 inset-x-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-md transition-colors h-[72px]">
       <div className="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo placeholder */}
+        {/* Logo or Home Link */}
         <ScrollLink
           to="profile"
           smooth
           duration={500}
+          offset={-HEADER_HEIGHT}
           className="text-xl font-semibold text-gray-900 dark:text-gray-100 cursor-pointer"
         >
           <span className="sr-only">Home</span>
+          {/* You can place a logo or initials here */}
         </ScrollLink>
 
         {/* Desktop Nav */}
@@ -45,7 +49,7 @@ export default function Header() {
               spy
               activeClass="text-mint"
               duration={500}
-              offset={-100}
+              offset={-HEADER_HEIGHT}
               className="relative text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-mint cursor-pointer transition"
             >
               {label}
@@ -69,14 +73,14 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-gray-900 bg-opacity-95 text-white flex flex-col items-center justify-center space-y-8 px-4">
+        <div className="fixed inset-0 z-40 bg-gray-900 bg-opacity-95 text-white flex flex-col items-center justify-center space-y-8 px-4 pt-[72px]">
           {navItems.map(({ id, label }) => (
             <ScrollLink
               key={id}
               to={id}
               smooth
               duration={500}
-              offset={-100}
+              offset={-HEADER_HEIGHT}
               onClick={() => setMobileOpen(false)}
               className="text-2xl font-semibold hover:text-mint transition cursor-pointer"
             >
